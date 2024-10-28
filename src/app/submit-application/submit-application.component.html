@@ -1,0 +1,26 @@
+<div *ngIf="!applicationSubmitted" class="form-container">
+  <div *ngIf="shouldShowMotivationalLetter">
+    <mat-form-field appearance="outline">
+      <mat-label>Motivational Letter</mat-label>
+      <textarea matInput [formControl]="motivationalLetter"></textarea>
+      <mat-error *ngIf="motivationalLetter.hasError('required')">
+        Motivational letter is required
+      </mat-error>
+      <mat-error *ngIf="motivationalLetter.hasError('minlength')">
+        Motivational letter must be at least 140 characters
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmitMotivationalLetter()"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+
+<div *ngIf="applicationSubmitted" class="form-container">
+  <h2>Application submitted</h2>
+  <pre>{{ getSubmissionData() }}</pre>
+</div>

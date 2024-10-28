@@ -1,0 +1,80 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="name-group">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+        <mat-error *ngIf="form.get('firstName')?.hasError('required')">
+          First name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+        <mat-error *ngIf="form.get('lastName')?.hasError('required')">
+          Last name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+      <mat-error *ngIf="form.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email')">
+        Please enter a valid email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="jobSeeking"
+      >Are you looking for a job?</mat-checkbox
+    >
+
+    <mat-form-field appearance="outline">
+      <mat-label>Specialist Level</mat-label>
+      <mat-select formControlName="specialistLevel">
+        <mat-option value="junior">Junior</mat-option>
+        <mat-option value="mid">Mid</mat-option>
+        <mat-option value="senior">Senior</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('specialistLevel')?.hasError('required')">
+        Specialist level is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="form.get('specialistLevel')?.value === 'junior'"
+      appearance="outline"
+    >
+      <mat-label>2 + 2</mat-label>
+      <input matInput formControlName="answer" type="number" />
+      <mat-error *ngIf="form.get('answer')?.hasError('required')">
+        Answer is required
+      </mat-error>
+      <mat-error *ngIf="form.get('answer')?.hasError('pattern')">
+        Incorrect answer. Please enter "4".
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="form.get('specialistLevel')?.value === 'mid'"
+      appearance="outline"
+    >
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-error *ngIf="form.get('description')?.hasError('required')">
+        Description is required
+      </mat-error>
+      <mat-error *ngIf="form.get('description')?.hasError('pattern')">
+        Description cannot contain the letter "a".
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" [disabled]="!form.valid">
+      {{ getButtonLabel() }}
+    </button>
+  </form>
+</div>
